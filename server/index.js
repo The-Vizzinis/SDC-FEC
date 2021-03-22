@@ -41,7 +41,7 @@ app.get('/qa/questions/:productId', (req, res) => {
 });
 
 app.post('/qa/questions', (req, res) => {
-  axios.post('http://localhost:3003/qa/questions', req.body, options)
+  axios.post('http://localhost:3003/qa/questions', req.body)
     .then(() => {
       res.status(201).end('created');
     }).catch((err) => {
@@ -52,7 +52,7 @@ app.post('/qa/questions', (req, res) => {
 app.get('/qa/questions/:questionId/answers', (req, res) => {
   const { questionId } = req.params;
 
-  axios.get(`http://localhost:3003/qa/questions/${questionId}/answers`, options)
+  axios.get(`http://localhost:3003/qa/questions/${questionId}/answers`)
     .then(({ data }) => {
       res.status(200).send(data);
     }).catch((err) => {
@@ -63,7 +63,7 @@ app.get('/qa/questions/:questionId/answers', (req, res) => {
 app.put('/qa/questions/:questionId/helpful', (req, res) => {
   const { questionId } = req.params;
 
-  axios.put(`http://localhost:3003/qa/questions/${questionId}/helpful`, req.body, options)
+  axios.put(`http://localhost:3003/qa/questions/${questionId}/helpful`, req.body)
     .then(() => {
       res.status(204).end('NO CONTENT');
     }).catch((err) => {
@@ -74,7 +74,7 @@ app.put('/qa/questions/:questionId/helpful', (req, res) => {
 app.put('/qa/questions/:questionId/report', (req, res) => {
   const { questionId } = req.params;
 
-  axios.put(`http://localhost:3003/qa/questions/${questionId}/report`, req.body, options)
+  axios.put(`http://localhost:3003/qa/questions/${questionId}/report`, req.body)
     .then(() => {
       res.status(204).end('NO CONTENT');
     }).catch((err) => {
@@ -85,7 +85,7 @@ app.put('/qa/questions/:questionId/report', (req, res) => {
 app.put('/qa/answers/:answerId/helpful', (req, res) => {
   const { answerId } = req.params;
 
-  axios.put(`http://localhost:3003/qa/answers/${answerId}/helpful`, req.body, options)
+  axios.put(`http://localhost:3003/qa/answers/${answerId}/helpful`, req.body)
     .then(() => {
       res.status(204).end('NO CONTENT');
     }).catch((err) => {
@@ -96,7 +96,7 @@ app.put('/qa/answers/:answerId/helpful', (req, res) => {
 app.put('/qa/answers/:answerId/report', (req, res) => {
   const { answerId } = req.params;
 
-  axios.put(`http://localhost:3003/qa/answers/${answerId}/report`, req.body, options)
+  axios.put(`http://localhost:3003/qa/answers/${answerId}/report`, req.body)
     .then(() => {
       res.status(204).end('NO CONTENT');
     }).catch((err) => {
