@@ -207,39 +207,43 @@ app.get('/outfit-styles', (req, res) => {
 
 app.get('/reviews', (req, res) => {
   const productOverviewId = req.query.id;
+  const { count } = req.query;
   const sortId = req.query.sort;
 
-  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/reviews/?product_id=${productOverviewId}&count=100&sort=${sortId}`, options)
+  axios.get(`http://localhost:3004/reviews?product_id=${productOverviewId}&count=${count}&sort=${sortId}`)
     .then(({ data }) => {
       res.send(data);
     })
-    .catch(() => res.sendStatus(400));
+    .catch(() => res.sendStatus(500));
 });
 
 app.get('/reviews/meta', (req, res) => {
   const productOverviewId = req.query.id;
-  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/reviews/meta/?product_id=${productOverviewId}`, options)
+  console.log('query', req.query);
+  console.log(productOverviewId);
+  axios.get(`http://localhost:3004/reviews/meta?product_id=${productOverviewId}`)
     .then(({ data }) => {
       res.send(data);
     })
-    .catch(() => res.sendStatus(400));
+    .catch(() => res.sendStatus(500));
 });
 
 app.put('/reviews/helpful', (req, res) => {
-  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/reviews/${req.body.id}/helpful`, { body: { review_id: req.body.id } }, options)
+  axios.put(`http://localhost:3004/reviews/${req.body.id}/helpful`, { body: { review_id: req.body.id } })
     .then(() => res.send(204))
     .catch(() => console.log('error in updating helpfulness'));
 });
 
 app.put('/reviews/report', (req, res) => {
-  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/reviews/${req.body.id}/report`, { body: { review_id: req.body.id } }, options)
+  axios.put(`http://localhost:3004/reviews/${req.body.id}/report`, { body: { review_id: req.body.id } })
     .then(() => res.send(204))
     .catch(() => console.log('report error'));
 });
 
 app.post('/reviews', (req, res) => {
   const productOverviewId = req.body.product_id;
-  axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/reviews/?product_id=${productOverviewId}`, req.body, options)
+  console.log('req body', req.body, 'id', productOverviewId);
+  axios.post(`http://localhost:3004/reviews/?product_id=${productOverviewId}`, req.body)
     .then(() => {
       res.status(201).end('created');
     })
